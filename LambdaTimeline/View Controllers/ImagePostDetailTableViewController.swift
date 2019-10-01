@@ -66,7 +66,9 @@ class ImagePostDetailTableViewController: UITableViewController {
         }
 
         let audioCommentAction = UIAlertAction(title: "Audio Comment", style: .default) { _ in
-            // TODO: Add code for recording
+            let audioStoryboard = UIStoryboard(name: "RecordAudio", bundle: nil)
+            guard let audioVC = audioStoryboard.instantiateInitialViewController() else { return }
+            self.present(audioVC, animated: true, completion: nil)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

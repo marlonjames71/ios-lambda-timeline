@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="liA-xw-mxr">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Record Audio View Controller-->
+        <scene sceneID="TIj-iQ-yKX">
+            <objects>
+                <viewController interfaceStyle="dark" id="KfK-AS-3HU" customClass="RecordAudioViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N9d-bc-QoI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="O7p-nt-BTA">
+                                <rect key="frame" x="20" y="353.5" width="374" height="189.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="F9q-nt-Hfd">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHV-jP-0VN">
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2tj-8A-wLo">
+                                                <rect key="frame" x="48" y="0.0" width="278" height="31"/>
+                                                <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="274" id="5TZ-yj-KRn"/>
+                                                </constraints>
+                                            </slider>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWY-1N-Ieb">
+                                                <rect key="frame" x="338" y="0.0" width="36" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-nu-XaU">
+                                        <rect key="frame" x="155" y="70" width="64" height="38.5"/>
+                                        <state key="normal" image="playpause.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35" scale="large" weight="ultraLight"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButtonTapped:" destination="KfK-AS-3HU" eventType="touchUpInside" id="bYA-dA-ZfU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gi1-1U-oYY">
+                                        <rect key="frame" x="166" y="148.5" width="42.5" height="41"/>
+                                        <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="mic.circle.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="thin"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="recordButtonTapped:" destination="KfK-AS-3HU" eventType="touchUpInside" id="CXv-za-mc4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="O7p-nt-BTA" firstAttribute="leading" secondItem="N9d-bc-QoI" secondAttribute="leading" constant="20" id="2L6-Wb-9vn"/>
+                            <constraint firstItem="O7p-nt-BTA" firstAttribute="centerY" secondItem="N9d-bc-QoI" secondAttribute="centerY" id="HWS-ni-5nW"/>
+                            <constraint firstAttribute="trailing" secondItem="O7p-nt-BTA" secondAttribute="trailing" constant="20" id="UdJ-H5-cZZ"/>
+                            <constraint firstItem="O7p-nt-BTA" firstAttribute="centerX" secondItem="N9d-bc-QoI" secondAttribute="centerX" id="ej5-Ah-YOh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ivq-Zp-kWF"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ulV-LS-R3C">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="xmark.circle.fill" catalog="system" id="1AJ-po-VOr">
+                            <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="KfK-AS-3HU" id="37U-0A-wjx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="POST" id="ABx-7j-RQW">
+                            <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="postButtonTapped:" destination="KfK-AS-3HU" id="LFu-PE-xu5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="1AJ-po-VOr" id="ONM-Kf-PWJ"/>
+                        <outlet property="currentTimeLabel" destination="cHV-jP-0VN" id="QFg-fm-cg7"/>
+                        <outlet property="playPauseButton" destination="jvZ-nu-XaU" id="ldV-aF-2wl"/>
+                        <outlet property="postButton" destination="ABx-7j-RQW" id="mhq-Tm-Rvo"/>
+                        <outlet property="recordButton" destination="Gi1-1U-oYY" id="o9U-qN-tZq"/>
+                        <outlet property="remainingTimeLabel" destination="DWY-1N-Ieb" id="Mjx-Ya-Dsn"/>
+                        <outlet property="slider" destination="2tj-8A-wLo" id="TNg-zN-BWt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ede-tm-rl1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.7101449275362" y="153.34821428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zo9-rt-1bh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" interfaceStyle="dark" id="liA-xw-mxr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sqB-FZ-e8N">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KfK-AS-3HU" kind="relationship" relationship="rootViewController" id="j1D-6y-pMa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bUH-Es-5uW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="169.56521739130437" y="153.34821428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="mic.circle.fill" catalog="system" width="64" height="62"/>
+        <image name="playpause.fill" catalog="system" width="64" height="36"/>
+        <image name="xmark.circle.fill" catalog="system" width="64" height="62"/>
+    </resources>
+</document>
