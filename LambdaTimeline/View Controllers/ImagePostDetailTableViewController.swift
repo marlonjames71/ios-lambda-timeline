@@ -38,6 +38,7 @@ class ImagePostDetailTableViewController: UITableViewController {
         
         alert.addTextField { (textField) in
             textField.placeholder = "Comment:"
+            textField.autocapitalizationType = .sentences
             commentTextField = textField
         }
         

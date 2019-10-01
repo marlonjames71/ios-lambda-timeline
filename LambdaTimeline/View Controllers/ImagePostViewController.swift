@@ -8,14 +8,50 @@
 
 import UIKit
 import Photos
+import CoreImage
 
 class ImagePostViewController: ShiftableViewController {
+
+    // MARK: - Editing Properties
+
+    @IBOutlet weak var sharpnessSlider: UISlider!
+    @IBOutlet weak var saturationSlider: UISlider!
+    @IBOutlet weak var brightnessSlider: UISlider!
+    @IBOutlet weak var contrastSlider: UISlider!
+    @IBOutlet weak var monoSwitch: UISwitch!
+    @IBOutlet weak var noirSwitch: UISwitch!
+
+    private let context = CIContext(options: nil)
+    private let colorFilter = CIFilter(name: "CIColorControls")!
+    private let sharpnessFilter = CIFilter(name: "CISharpenLuminance")!
+    private let monoFilter = CIFilter(name: "CIPhotoEffectMono")!
+    private let noirFilter = CIFilter(name: "CIPhotoEffectNoir")!
+
+
+    private var originalImage: UIImage? {
+        didSet {
+            guard let image = originalImage else { return }
+
+            var maxSize = imageView.bounds.size
+            let scale = UIScreen.main.scale
+
+            maxSize = CGSize(width: maxSize.width * scale, height: maxSize.height * scale)
+
+            scaledImage = image.imageByScaling(toSize: maxSize)
+        }
+    }
+
+    private var scaledImage:UIImage? {
+        didSet {
+            updateImage()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setImageViewHeight(with: 1.0)
-        
+
         updateViews()
     }
     
@@ -35,6 +71,58 @@ class ImagePostViewController: ShiftableViewController {
         
         chooseImageButton.setTitle("", for: [])
     }
+
+    private func updateImage() {
+        if let image = originalImage {
+            imageView.image = filterImage(image)
+//            imageView.image = filterSharpenImage(image)
+        } else {
+            //  TODO: set to nil? clear it?
+        }
+    }
+
+    private func filterImage(_ image: UIImage) -> UIImage {
+
+        guard let cgImage = image.cgImage else { fatalError("No image available for filtering") }
+
+        var ciImage = CIImage(cgImage: cgImage)
+
+        colorFilter.setValue(ciImage, forKey: kCIInputImageKey)
+
+        colorFilter.setValue(brightnessSlider.value, forKey: kCIInputBrightnessKey)
+        colorFilter.setValue(contrastSlider.value, forKey: kCIInputContrastKey)
+        colorFilter.setValue(saturationSlider.value, forKey: kCIInputSaturationKey)
+
+        ciImage = colorFilter.outputImage ?? ciImage
+
+        sharpnessFilter.setValue(ciImage, forKey: kCIInputImageKey)
+        sharpnessFilter.setValue(sharpnessSlider.value, forKey: kCIInputSharpnessKey)
+
+//        monoFilter.setValue(monoSwitch, forKey: kCIInputImageKey)
+//        noirFilter.setValue(noirSwitch, forKey: kCIInputImageKey)
+
+        ciImage = sharpnessFilter.outputImage ?? ciImage
+
+        guard let outputCGImage = context.createCGImage(ciImage, from: CGRect(origin: .zero, size: image.size)) else { return image }
+
+        return UIImage(cgImage: outputCGImage)
+    }
+
+        private func filterSharpenImage(_ image: UIImage) -> UIImage {
+
+            guard let cgImage = image.cgImage else { fatalError("No image available for filtering") }
+
+            let ciImage = CIImage(cgImage: cgImage)
+
+            sharpnessFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            sharpnessFilter.setValue(sharpnessSlider.value, forKey: kCIInputSharpnessKey)
+
+            guard let outputCIImage = sharpnessFilter.outputImage else { return image }
+
+            guard let outputCGImage = context.createCGImage(outputCIImage, from: CGRect(origin: .zero, size: image.size)) else { return image }
+
+            return UIImage(cgImage: outputCGImage)
+        }
     
     private func presentImagePickerController() {
         
@@ -104,6 +192,33 @@ class ImagePostViewController: ShiftableViewController {
         }
         presentImagePickerController()
     }
+
+    // MARK: - Photo Edit Actions
+
+    @IBAction func sharpnessChanged(_ sender: UISlider) {
+        updateImage()
+    }
+
+    @IBAction func saturationChanged(_ sender: UISlider) {
+        updateImage()
+    }
+
+    @IBAction func brightnessChanged(_ sender: UISlider) {
+        updateImage()
+    }
+
+    @IBAction func contrastChanged(_ sender: UISlider) {
+        updateImage()
+    }
+
+    @IBAction func monoSwitched(_ sender: UISwitch) {
+
+    }
+
+    @IBAction func noirSwitched(_ sender: UISwitch) {
+
+    }
+
     
     func setImageViewHeight(with aspectRatio: CGFloat) {
         
@@ -134,6 +249,7 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         
         imageView.image = image
+        originalImage = image
         
         setImageViewHeight(with: image.ratio)
     }

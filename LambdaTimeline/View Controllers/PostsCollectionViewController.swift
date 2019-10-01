@@ -166,4 +166,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     private var operations = [String : Operation]()
     private let mediaFetchQueue = OperationQueue()
     private let cache = Cache<String, Data>()
+
+//    Auth.auth().signOut()
 }
