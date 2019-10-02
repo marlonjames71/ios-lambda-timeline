@@ -243,6 +243,7 @@ extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
         chooseImageButton.setTitle("", for: [])
+        chooseImageButton.setImage(nil, for: .normal)
         
         picker.dismiss(animated: true, completion: nil)
         
