@@ -21,6 +21,7 @@ class RecordAudioViewController: UIViewController {
     @IBOutlet private weak var postButton: UIBarButtonItem!
 
     lazy private var player = AudioPlayer()
+    lazy private var recorder = Record()
 
     private lazy var timeFormatter: DateComponentsFormatter = {
         let formatting = DateComponentsFormatter()
@@ -39,6 +40,7 @@ class RecordAudioViewController: UIViewController {
         setupFontForTimeLabels()
         updateSlider()
         player.delegate = self
+        recorder.delegate = self
     }
 
 
@@ -54,12 +56,14 @@ class RecordAudioViewController: UIViewController {
     }
 
     @IBAction func recordButtonTapped(_ sender: UIButton) {
-
+        recorder.toggleRecord()
+        animateRecordButton()
     }
 
     @IBAction func postButtonTapped(_ sender: UIBarButtonItem) {
         
     }
+
 
     // MARK: - Helper Functions
 
@@ -73,14 +77,26 @@ class RecordAudioViewController: UIViewController {
         updateSlider()
         currentTimeLabel.text = timeFormatter.string(from: player.currentTime)
         timeRemainingLabel.text = timeFormatter.string(from: player.duration)
-//        timeRemainingLabel.text = timeFormatter.string(from: player.timeRemaining)
+        animatePlayPauseButton()
+    }
 
+    private func animatePlayPauseButton() {
         if player.isPlaying {
             UIView.animateKeyframes(withDuration: 0.8, delay: 0.0, options: [.repeat, .autoreverse], animations: {
                 self.playPauseButton.tintColor = UIColor(red: 0.01, green: 1.00, blue: 0.79, alpha: 1.00)
             }, completion: nil)
         } else {
             playPauseButton.tintColor = .systemTeal
+        }
+    }
+
+    private func animateRecordButton() {
+        if recorder.isRecording {
+            UIView.animateKeyframes(withDuration: 0.6, delay: 0.0, options: [.repeat, .autoreverse], animations: {
+                self.recordButton.tintColor = .systemPink
+            }, completion: nil)
+        } else {
+            recordButton.tintColor = .systemIndigo
         }
     }
 
@@ -95,6 +111,21 @@ class RecordAudioViewController: UIViewController {
 extension RecordAudioViewController: AudioPlayerDelegate {
     func playerDidChangeState(_ player: AudioPlayer) {
         updateViews()
-        
+    }
+}
+
+extension RecordAudioViewController: RecorderDelegate {
+    func recorderDidChangeState(_ recorder: Record) {
+        updateViews()
+    }
+
+    func recorderDidFinishSavingFile(_ recorder: Record, url: URL) {
+        if !recorder.isRecording {
+            do {
+                try player.loadAudio(with: url)
+            } catch {
+                NSLog("Error loading audio with url: \(error)")
+            }
+        }
     }
 }
