@@ -15,6 +15,8 @@ protocol RecorderDelegate: AnyObject {
 
 class Record: NSObject {
 
+    // MARK: - Computed & Non-computed properties
+
     private var audioRecorder: AVAudioRecorder?
     var delegate: RecorderDelegate?
     var timer: Timer?
@@ -27,9 +29,13 @@ class Record: NSObject {
         audioRecorder?.currentTime ?? TimeInterval(0.0)
     }
 
+    // MARK: - Init()
+
     override init() {
         super.init()
     }
+
+    // MARK: - Record functions
 
     func record() {
         let docDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -70,6 +76,8 @@ class Record: NSObject {
     func toggleRecord() {
         isRecording ? stop() : record()
     }
+
+    // MARK: - Notify
 
     func notifyDelegate() {
         delegate?.recorderDidChangeState(self)

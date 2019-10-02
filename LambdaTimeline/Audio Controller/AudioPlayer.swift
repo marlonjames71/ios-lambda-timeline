@@ -14,6 +14,8 @@ protocol AudioPlayerDelegate {
 
 class AudioPlayer: NSObject {
 
+    // MARK: - Computed & Non-computed properties
+
     var audioPlayer: AVAudioPlayer
     var delegate: AudioPlayerDelegate?
     var timer: Timer?
@@ -34,6 +36,7 @@ class AudioPlayer: NSObject {
         audioPlayer.duration
     }
 
+    // MARK: - Init()
 
     override init() {
         self.audioPlayer = AVAudioPlayer()
@@ -76,6 +79,8 @@ class AudioPlayer: NSObject {
         timer?.invalidate()
         timer = nil
     }
+
+    // MARK: - Notification
 
     private func notifyDelegate() {
         delegate?.playerDidChangeState(self)
