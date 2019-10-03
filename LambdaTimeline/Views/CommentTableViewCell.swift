@@ -32,25 +32,21 @@ class CommentTableViewCell: UITableViewCell {
         super.awakeFromNib()
         updateViews()
         setupCellUI()
-
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         if selected {
             guard let url = comment?.audioURL else { return }
+            let audioData = try! Data(contentsOf: url)
 
             do {
-                player = try AVAudioPlayer(contentsOf: url)
-                
+                player = try AVAudioPlayer(data: audioData)
+                player.play()
             } catch {
                 NSLog("Error loading url: \(error)")
             }
-            player.play()
         }
-
     }
 
     func setupCellUI() {
@@ -89,5 +85,4 @@ class CommentTableViewCell: UITableViewCell {
             commentTextLabel.text = comment.text
         }
     }
-
 }
