@@ -35,29 +35,41 @@ class PostController {
         }
     }
     
-    func addComment(with text: String?, to post: Post) {
+    func addComment(with text: String?, to post: Post, completion: @escaping () -> Void) {
         
         guard let currentUser = Auth.auth().currentUser,
-            let author = Author(user: currentUser) else { return }
+            let author = Author(user: currentUser) else {
+                completion()
+                return
+        }
 
         let comment = Comment(text: text, audioURL: nil, author: author)
         post.comments.append(comment)
         
-        savePostToFirebase(post)
+        savePostToFirebase(post) { _ in
+            completion()
+        }
     }
 
-    func addAudioComment(with data: Data, to post: Post) {
+    func addAudioComment(with data: Data, to post: Post, completion: @escaping () -> Void) {
 
         guard let currentUser = Auth.auth().currentUser,
-            let author = Author(user: currentUser) else { return }
+            let author = Author(user: currentUser) else {
+                completion()
+                return
+        }
 
         store(mediaData: data, mediaType: .image) { (url) in
             let comment = Comment(text: nil, audioURL: url, author: author)
+
+//            DispatchQueue.main.async {
+//            }
             post.comments.append(comment)
 
-            self.savePostToFirebase(post)
+            self.savePostToFirebase(post) { _ in
+                completion()
+            }
         }
-
     }
 
     func observePosts(completion: @escaping (Error?) -> Void) {
@@ -69,16 +81,13 @@ class PostController {
             var posts: [Post] = []
             
             for (key, value) in postDictionaries {
-                
                 guard let post = Post(dictionary: value, id: key) else { continue }
-                
                 posts.append(post)
             }
             
             self.posts = posts.sorted(by: { $0.timestamp > $1.timestamp })
-            
+
             completion(nil)
-            
         }) { (error) in
             NSLog("Error fetching posts: \(error)")
         }

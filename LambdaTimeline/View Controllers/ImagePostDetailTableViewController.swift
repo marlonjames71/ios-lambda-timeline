@@ -52,7 +52,10 @@ class ImagePostDetailTableViewController: UITableViewController {
 
                 guard let commentText = commentTextField?.text else { return }
 
-                self.postController.addComment(with: commentText, to: self.post!)
+                self.postController.addComment(with: commentText, to: self.post) {
+                    self.tableView.reloadData()
+                }
+//                self.postController.addComment(with: commentText, to: self.post!)
 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -84,6 +87,7 @@ class ImagePostDetailTableViewController: UITableViewController {
                 let recordVC = navController.children.first as? RecordAudioViewController else { return }
             recordVC.postController = postController
             recordVC.post = post
+            recordVC.delegate = self
         }
     }
     
@@ -111,4 +115,14 @@ class ImagePostDetailTableViewController: UITableViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var imageViewAspectRatioConstraint: NSLayoutConstraint!
+}
+
+extension ImagePostDetailTableViewController: RecordAudioViewControllerDelegate {
+    func didAddAudioComment(recordAudioViewController: RecordAudioViewController, addedComment: Bool) {
+        if addedComment {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 }

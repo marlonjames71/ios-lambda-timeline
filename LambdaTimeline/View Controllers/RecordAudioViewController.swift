@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RecordAudioViewControllerDelegate: AnyObject {
+    func didAddAudioComment(recordAudioViewController: RecordAudioViewController, addedComment: Bool)
+}
+
 class RecordAudioViewController: UIViewController {
 
     // MARK: - Properties & Outlets
@@ -25,6 +29,8 @@ class RecordAudioViewController: UIViewController {
     var postController: PostController?
     var post: Post?
     var url: URL?
+
+    weak var delegate: RecordAudioViewControllerDelegate?
 
     private lazy var timeFormatter: DateComponentsFormatter = {
         let formatting = DateComponentsFormatter()
@@ -69,7 +75,9 @@ class RecordAudioViewController: UIViewController {
             let url = url,
             let recordingData = try? Data(contentsOf: url) else { return }
 
-        postController.addAudioComment(with: recordingData, to: post)
+        postController.addAudioComment(with: recordingData, to: post) {
+            self.delegate?.didAddAudioComment(recordAudioViewController: self, addedComment: true)
+        }
 
         dismiss(animated: true, completion: nil)
     }
