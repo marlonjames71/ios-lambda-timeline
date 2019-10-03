@@ -13,6 +13,8 @@
 		3727533D2343F4AF0017E502 /* RecordAudio.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3727533C2343F4AF0017E502 /* RecordAudio.storyboard */; };
 		3727533F234407740017E502 /* RecordAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3727533E234407740017E502 /* RecordAudioViewController.swift */; };
 		37546DC0234547A3005F7EEF /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37546DBF234547A3005F7EEF /* CommentTableViewCell.swift */; };
+		3763F30E2346AEA8007A4E5C /* VideoPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3763F30D2346AEA8007A4E5C /* VideoPost.storyboard */; };
+		3763F3102346AEDC007A4E5C /* VideoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3763F30F2346AEDC007A4E5C /* VideoPostViewController.swift */; };
 		37EF455A23429E7700CF4583 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37EF455923429E7700CF4583 /* GoogleService-Info.plist */; };
 		37EF455C2342C0AF00CF4583 /* AlertTint+UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF455B2342C0AF00CF4583 /* AlertTint+UIAlertController.swift */; };
 		37EF455F2342DC5B00CF4583 /* UIImage+Scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF455E2342DC5B00CF4583 /* UIImage+Scaling.swift */; };
@@ -49,6 +51,8 @@
 		3727533C2343F4AF0017E502 /* RecordAudio.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RecordAudio.storyboard; sourceTree = "<group>"; };
 		3727533E234407740017E502 /* RecordAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordAudioViewController.swift; sourceTree = "<group>"; };
 		37546DBF234547A3005F7EEF /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		3763F30D2346AEA8007A4E5C /* VideoPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VideoPost.storyboard; sourceTree = "<group>"; };
+		3763F30F2346AEDC007A4E5C /* VideoPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostViewController.swift; sourceTree = "<group>"; };
 		37EF455923429E7700CF4583 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37EF455B2342C0AF00CF4583 /* AlertTint+UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertTint+UIAlertController.swift"; sourceTree = "<group>"; };
 		37EF455E2342DC5B00CF4583 /* UIImage+Scaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scaling.swift"; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				4646377F216FDE4B00E7FF73 /* Main.storyboard */,
 				46463784216FDE4C00E7FF73 /* LaunchScreen.storyboard */,
 				3727533C2343F4AF0017E502 /* RecordAudio.storyboard */,
+				3763F30D2346AEA8007A4E5C /* VideoPost.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				46CFE6F421707D0000E7FF73 /* ImagePostViewController.swift */,
 				46D571F72173FC2700E7FF73 /* ImagePostDetailTableViewController.swift */,
 				3727533E234407740017E502 /* RecordAudioViewController.swift */,
+				3763F30F2346AEDC007A4E5C /* VideoPostViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				3726D22F2344154C00D79BA6 /* piano.mp3 in Resources */,
 				37EF455A23429E7700CF4583 /* GoogleService-Info.plist in Resources */,
 				46463783216FDE4C00E7FF73 /* Assets.xcassets in Resources */,
+				3763F30E2346AEA8007A4E5C /* VideoPost.storyboard in Resources */,
 				46463781216FDE4B00E7FF73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +401,7 @@
 				46CFE6FB21714E6100E7FF73 /* Author.swift in Sources */,
 				37546DC0234547A3005F7EEF /* CommentTableViewCell.swift in Sources */,
 				46CFE6F92170862C00E7FF73 /* ShiftableViewController.swift in Sources */,
+				3763F3102346AEDC007A4E5C /* VideoPostViewController.swift in Sources */,
 				4646377C216FDE4B00E7FF73 /* AppDelegate.swift in Sources */,
 				37EF455C2342C0AF00CF4583 /* AlertTint+UIAlertController.swift in Sources */,
 				46CFE6FD217154F500E7FF73 /* Networking.swift in Sources */,

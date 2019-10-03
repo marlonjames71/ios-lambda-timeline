@@ -97,6 +97,7 @@
                     <connections>
                         <segue destination="1Aw-4e-BW2" kind="show" identifier="AddImagePost" id="jaI-fq-Woc"/>
                         <segue destination="OyM-8q-Icp" kind="show" identifier="ViewImagePost" id="hhs-es-AdQ"/>
+                        <segue destination="t07-ad-5H7" kind="presentation" identifier="AddVideoPost" id="GeG-1z-76V"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRz-lg-pQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -385,6 +386,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xA4-1f-Wlf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-450.39999999999998" y="107.49625187406298"/>
+        </scene>
+        <!--VideoPost-->
+        <scene sceneID="JHb-h3-Vw8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="VideoPost" id="t07-ad-5H7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XFQ-vV-q4u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1216" y="522"/>
         </scene>
         <!--Title-->
         <scene sceneID="9zi-Aq-zJI">

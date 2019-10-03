@@ -26,14 +26,25 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
         let alert = UIAlertController(title: "New Post", message: "Which kind of post do you want to create?", preferredStyle: .actionSheet)
         
-        let imagePostAction = UIAlertAction(title: "Image", style: .default) { (_) in
+        let imagePostAction = UIAlertAction(title: "Image", style: .default) { _ in
             self.performSegue(withIdentifier: "AddImagePost", sender: nil)
+        }
+
+        let videoPostAction = UIAlertAction(title: "Video", style: .default) { _ in
+            self.performSegue(withIdentifier: "AddVideoPost", sender: nil)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alert.addAction(imagePostAction)
-        alert.addAction(cancelAction)
+
+
+        [videoPostAction, imagePostAction, cancelAction].forEach { alert.addAction($0) }
+
+        // TODO: Maybe add icons here?
+//        let videoIcon = UIImage(systemName: "video")
+//        let cameraIcon = UIImage(systemName: "camera")
+//
+//        videoPostAction.setValue(videoIcon, forKey: "videoImage")
+//        imagePostAction.setValue(cameraIcon, forKey: "cameraIcon")
         
         self.present(alert, animated: true, completion: nil)
     }
