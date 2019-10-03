@@ -11,11 +11,22 @@ import AVFoundation
 
 class CommentTableViewCell: UITableViewCell {
 
-    var player = AVAudioPlayer()
+    // MARK: - Properties & Outlets
+
+    var player: AVAudioPlayer?
+    var downloadDataTask: URLSessionDataTask?
 
     var comment: Comment? {
         didSet {
+            downloadAudio()
             updateViews()
+        }
+    }
+
+    var audioData: Data? {
+        didSet {
+            guard let audioData = audioData else { return }
+            player = try? AVAudioPlayer(data: audioData)
         }
     }
 
@@ -23,10 +34,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var commentTextLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
 
-    enum CommentType {
-        case text
-        case audio
-    }
+
+    // MARK: - Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,20 +43,35 @@ class CommentTableViewCell: UITableViewCell {
         setupCellUI()
     }
 
+
+    // MARK: - Cell Override
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            guard let url = comment?.audioURL else { return }
-            let audioData = try! Data(contentsOf: url)
-
-            do {
-                player = try AVAudioPlayer(data: audioData)
-                player.play()
-            } catch {
-                NSLog("Error loading url: \(error)")
-            }
+            guard let audioPlayer = player else { return }
+            audioPlayer.play()
         }
     }
+
+    private func downloadAudio() {
+        guard let audioURL = comment?.audioURL else { return }
+        downloadDataTask?.cancel()
+        downloadDataTask = URLSession.shared.dataTask(with: audioURL, completionHandler: { (audioData, _, error) in
+            if let error = error {
+                NSLog("Error downloading audio data: \(error)")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.audioData = audioData
+            }
+        })
+        downloadDataTask?.resume()
+    }
+
+
+    // MARK: - Helper methods
 
     func setupCellUI() {
         let iconConfig = UIImage.SymbolConfiguration(pointSize: 80.0, weight: .light)
@@ -66,8 +90,10 @@ class CommentTableViewCell: UITableViewCell {
 
         if urlExists {
             commentTypeImageView.image = audioIcon
+            commentTypeImageView.tintColor = .systemPink
         } else {
             commentTypeImageView.image = textBubbleIcon
+            commentTypeImageView.tintColor = .systemIndigo
         }
     }
 

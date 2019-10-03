@@ -13,6 +13,7 @@ class ImagePostDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        tableView.tableFooterView = UIView()
     }
     
     func updateViews() {
@@ -27,6 +28,7 @@ class ImagePostDetailTableViewController: UITableViewController {
         titleLabel.text = post.title
         authorLabel.text = post.author.displayName
     }
+
     
     // MARK: - Table view data source
     
