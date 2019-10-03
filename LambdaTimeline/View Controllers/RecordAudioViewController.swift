@@ -22,6 +22,9 @@ class RecordAudioViewController: UIViewController {
 
     lazy private var player = AudioPlayer()
     lazy private var recorder = Record()
+    var postController: PostController?
+    var post: Post?
+    var url: URL?
 
     private lazy var timeFormatter: DateComponentsFormatter = {
         let formatting = DateComponentsFormatter()
@@ -61,7 +64,14 @@ class RecordAudioViewController: UIViewController {
     }
 
     @IBAction func postButtonTapped(_ sender: UIBarButtonItem) {
-        
+        guard let postController = postController,
+            let post = post,
+            let url = url,
+            let recordingData = try? Data(contentsOf: url) else { return }
+
+        postController.addAudioComment(with: recordingData, to: post)
+
+        dismiss(animated: true, completion: nil)
     }
 
 
@@ -121,6 +131,8 @@ extension RecordAudioViewController: RecorderDelegate {
 
     func recorderDidFinishSavingFile(_ recorder: Record, url: URL) {
         if !recorder.isRecording {
+            self.url = url
+            print(url)
             do {
                 try player.loadAudio(with: url)
             } catch {
