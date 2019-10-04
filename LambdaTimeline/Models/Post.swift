@@ -11,6 +11,7 @@ import FirebaseAuth
 
 enum MediaType: String {
     case image
+    case video
 }
 
 class Post {
@@ -37,7 +38,7 @@ class Post {
     static private let timestampKey = "timestamp"
     static private let idKey = "id"
     
-    init(mediaURL: URL, ratio: CGFloat? = nil, author: Author, description: String, timestamp: Date = Date()) {
+    init(mediaURL: URL, mediaType: MediaType, ratio: CGFloat? = nil, author: Author, description: String, timestamp: Date = Date()) {
         self.mediaURL = mediaURL
         self.ratio = ratio
         self.mediaType = .image
