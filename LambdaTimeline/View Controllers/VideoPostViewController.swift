@@ -10,6 +10,13 @@ import UIKit
 
 class VideoPostViewController: UIViewController {
 
+
+
+    @IBOutlet private weak var cameraView: CameraPreviewView!
+    @IBOutlet private weak var recordButton: UIButton!
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

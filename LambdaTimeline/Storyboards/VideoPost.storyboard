@@ -10,11 +10,36 @@
         <!--Video Post-->
         <scene sceneID="QBj-g5-5XY">
             <objects>
-                <viewController id="JWg-nA-ixV" customClass="VideoPostViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController interfaceStyle="dark" id="JWg-nA-ixV" customClass="VideoPostViewController" customModule="LambdaTimeline" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0q-Qf-o5a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUI-30-vp1" customClass="CameraPreviewView" customModule="LambdaTimeline" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7Q-8O-Iqj">
+                                        <rect key="frame" x="177.5" y="671" width="59" height="57"/>
+                                        <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="largecircle.fill.circle" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="m7Q-8O-Iqj" secondAttribute="bottom" constant="80" id="PYK-ao-s3r"/>
+                                    <constraint firstItem="m7Q-8O-Iqj" firstAttribute="centerX" secondItem="vUI-30-vp1" secondAttribute="centerX" id="p5U-bp-9Eh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vUI-30-vp1" firstAttribute="top" secondItem="Jpr-Kv-VGE" secondAttribute="top" id="Gwa-3w-MBH"/>
+                            <constraint firstAttribute="bottom" secondItem="vUI-30-vp1" secondAttribute="bottom" id="UmL-xJ-nd0"/>
+                            <constraint firstItem="vUI-30-vp1" firstAttribute="trailing" secondItem="Jpr-Kv-VGE" secondAttribute="trailing" id="nVL-4b-9Ez"/>
+                            <constraint firstItem="vUI-30-vp1" firstAttribute="leading" secondItem="Jpr-Kv-VGE" secondAttribute="leading" id="vXn-te-1Ky"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Jpr-Kv-VGE"/>
                     </view>
                     <navigationItem key="navigationItem" title="Video Post" id="Eal-Rf-1Ai">
@@ -26,6 +51,10 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cameraView" destination="vUI-30-vp1" id="fUa-2H-NTq"/>
+                        <outlet property="recordButton" destination="m7Q-8O-Iqj" id="koX-p0-TXy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa8-09-nUv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -34,7 +63,7 @@
         <!--Navigation Controller-->
         <scene sceneID="tI8-2r-Egt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g6D-nL-qtQ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" interfaceStyle="dark" id="g6D-nL-qtQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N2g-ER-gae">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -51,4 +80,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="largecircle.fill.circle" catalog="system" width="64" height="62"/>
+    </resources>
 </document>

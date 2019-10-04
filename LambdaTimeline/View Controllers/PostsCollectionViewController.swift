@@ -9,9 +9,20 @@
 import UIKit
 import FirebaseAuth
 import FirebaseUI
+import AVFoundation
 
 class PostsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+
+    // MARK: - Properties & Outlets
+
+    private let postController = PostController()
+    private var operations = [String : Operation]()
+    private let mediaFetchQueue = OperationQueue()
+    private let cache = Cache<String, Data>()
+    //    Auth.auth().signOut() // TODO: Implement signout functionality. Button is already in place.
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,35 +32,77 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             }
         }
     }
+
+    // MARK: - Show Camera & Camera Request Functions
+
+    enum CameraAccessAlertMessages: String {
+        case restricted = "Unable to use this feature due to restricted access."
+        case denied = "Please enable us to have access to the camera in order to use this feature."
+    }
+
+    private func requestCameraPermission() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            requestCameraAccess()
+        case .restricted:
+            let alert = UIAlertController(title: CameraAccessAlertMessages.restricted.rawValue, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        case .denied:
+            let alert = UIAlertController(title: CameraAccessAlertMessages.denied.rawValue, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        case .authorized:
+            showCamera()
+        }
+    }
+
+    private func requestCameraAccess() {
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            if granted == false {
+                let alert = UIAlertController(title: CameraAccessAlertMessages.denied.rawValue, message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+
+            DispatchQueue.main.async {
+                self.showCamera()
+            }
+        }
+    }
+
+    private func showCamera() {
+        performSegue(withIdentifier: "AddVideoPost", sender: self)
+    }
+
+    // MARK: - IBAction (Post)
     
     @IBAction func addPost(_ sender: Any) {
         
         let alert = UIAlertController(title: "New Post", message: "Which kind of post do you want to create?", preferredStyle: .actionSheet)
         
         let imagePostAction = UIAlertAction(title: "Image", style: .default) { _ in
-            self.performSegue(withIdentifier: "AddImagePost", sender: nil)
+            self.performSegue(withIdentifier: "AddImagePost", sender: self)
         }
 
         let videoPostAction = UIAlertAction(title: "Video", style: .default) { _ in
-            self.performSegue(withIdentifier: "AddVideoPost", sender: nil)
+            self.requestCameraPermission()
+            self.showCamera()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
 
         [videoPostAction, imagePostAction, cancelAction].forEach { alert.addAction($0) }
 
         // TODO: Maybe add icons here?
 //        let videoIcon = UIImage(systemName: "video")
-//        let cameraIcon = UIImage(systemName: "camera")
-//
 //        videoPostAction.setValue(videoIcon, forKey: "videoImage")
-//        imagePostAction.setValue(cameraIcon, forKey: "cameraIcon")
         
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - CollectionView Methods
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return postController.posts.count
@@ -104,6 +157,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         guard let postID = postController.posts[indexPath.row].id else { return }
         operations[postID]?.cancel()
     }
+
+    // MARK: - Load Images & Videos
     
     func loadImage(for imagePostCell: ImagePostCollectionViewCell, forItemAt indexPath: IndexPath) {
         let post = postController.posts[indexPath.row]
@@ -153,8 +208,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         operations[postID] = fetchOp
     }
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddImagePost" {
             let destinationVC = segue.destination as? ImagePostViewController
@@ -172,11 +226,4 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             destinationVC?.imageData = cache.value(for: postID)
         }
     }
-    
-    private let postController = PostController()
-    private var operations = [String : Operation]()
-    private let mediaFetchQueue = OperationQueue()
-    private let cache = Cache<String, Data>()
-
-//    Auth.auth().signOut()
 }
