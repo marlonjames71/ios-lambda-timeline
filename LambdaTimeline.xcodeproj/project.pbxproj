@@ -16,6 +16,8 @@
 		3763F30E2346AEA8007A4E5C /* VideoPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3763F30D2346AEA8007A4E5C /* VideoPost.storyboard */; };
 		3763F3102346AEDC007A4E5C /* VideoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3763F30F2346AEDC007A4E5C /* VideoPostViewController.swift */; };
 		3763F3122346B4E2007A4E5C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3763F3112346B4E2007A4E5C /* CameraPreviewView.swift */; };
+		3763F3142347046B007A4E5C /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3763F3132347046B007A4E5C /* VideoCollectionViewCell.swift */; };
+		3763F316234704F1007A4E5C /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3763F315234704F1007A4E5C /* VideoPlayerView.swift */; };
 		37EF455A23429E7700CF4583 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37EF455923429E7700CF4583 /* GoogleService-Info.plist */; };
 		37EF455C2342C0AF00CF4583 /* AlertTint+UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF455B2342C0AF00CF4583 /* AlertTint+UIAlertController.swift */; };
 		37EF455F2342DC5B00CF4583 /* UIImage+Scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF455E2342DC5B00CF4583 /* UIImage+Scaling.swift */; };
@@ -55,6 +57,8 @@
 		3763F30D2346AEA8007A4E5C /* VideoPost.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VideoPost.storyboard; sourceTree = "<group>"; };
 		3763F30F2346AEDC007A4E5C /* VideoPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPostViewController.swift; sourceTree = "<group>"; };
 		3763F3112346B4E2007A4E5C /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		3763F3132347046B007A4E5C /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		3763F315234704F1007A4E5C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		37EF455923429E7700CF4583 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37EF455B2342C0AF00CF4583 /* AlertTint+UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertTint+UIAlertController.swift"; sourceTree = "<group>"; };
 		37EF455E2342DC5B00CF4583 /* UIImage+Scaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scaling.swift"; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 				46CFE7022171572600E7FF73 /* ImagePostCollectionViewCell.swift */,
 				37546DBF234547A3005F7EEF /* CommentTableViewCell.swift */,
 				3763F3112346B4E2007A4E5C /* CameraPreviewView.swift */,
+				3763F3132347046B007A4E5C /* VideoCollectionViewCell.swift */,
+				3763F315234704F1007A4E5C /* VideoPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				3763F3122346B4E2007A4E5C /* CameraPreviewView.swift in Sources */,
 				46CFE6FF2171556D00E7FF73 /* ConcurrentOperation.swift in Sources */,
 				46463790216FFD1B00E7FF73 /* Post.swift in Sources */,
+				3763F3142347046B007A4E5C /* VideoCollectionViewCell.swift in Sources */,
 				46CFE6F32170757F00E7FF73 /* User+DictionaryRepresentation.swift in Sources */,
 				46D571F32172D43B00E7FF73 /* Cache.swift in Sources */,
 				46CFE7012171559500E7FF73 /* FetchMediaOperation.swift in Sources */,
@@ -422,6 +429,7 @@
 				46CFE7032171572600E7FF73 /* ImagePostCollectionViewCell.swift in Sources */,
 				4646379C2170091A00E7FF73 /* PostController.swift in Sources */,
 				464637992170048900E7FF73 /* FirebaseConvertible.swift in Sources */,
+				3763F316234704F1007A4E5C /* VideoPlayerView.swift in Sources */,
 				46A0366A21700F5100E7FF73 /* PostsCollectionViewController.swift in Sources */,
 				3727533F234407740017E502 /* RecordAudioViewController.swift in Sources */,
 				46D571F52173CF3E00E7FF73 /* UIImage+Ratio.swift in Sources */,
