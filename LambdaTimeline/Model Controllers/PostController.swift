@@ -62,8 +62,6 @@ class PostController {
         store(mediaData: data, mediaType: .image) { (url) in
             let comment = Comment(text: nil, audioURL: url, author: author)
 
-//            DispatchQueue.main.async {
-//            }
             post.comments.append(comment)
 
             self.savePostToFirebase(post) { _ in
@@ -93,7 +91,7 @@ class PostController {
         }
     }
     
-    func savePostToFirebase(_ post: Post, completion: (Error?) -> Void = { _ in }) {
+    func savePostToFirebase(_ post: Post, completion: @escaping (Error?) -> Void = { _ in }) {
         
         guard let postID = post.id else { return }
         
@@ -102,7 +100,9 @@ class PostController {
         ref.setValue(post.dictionaryRepresentation) { (error, _) in
             if let error = error {
                 NSLog("Error saving post: \(error)")
+                completion(error)
             }
+            completion(nil)
         }
     }
 

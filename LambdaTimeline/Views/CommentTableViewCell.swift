@@ -108,6 +108,7 @@ class CommentTableViewCell: UITableViewCell {
             commentTextLabel.isHidden = true
         } else {
             changeCellIconIf(false)
+            commentTextLabel.isHidden = false
             commentTextLabel.text = comment.text
         }
     }

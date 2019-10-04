@@ -24,6 +24,10 @@
                                         <state key="normal" image="largecircle.fill.circle" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
                                         </state>
+                                        <state key="selected" image="stop.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="recordButtonTapped:" destination="JWg-nA-ixV" eventType="touchUpInside" id="kuW-br-Ami"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -82,5 +86,6 @@
     </scenes>
     <resources>
         <image name="largecircle.fill.circle" catalog="system" width="64" height="62"/>
+        <image name="stop.circle" catalog="system" width="64" height="62"/>
     </resources>
 </document>
