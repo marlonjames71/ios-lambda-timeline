@@ -114,13 +114,16 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         switch post.mediaType {
             
         case .image:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePostCell", for: indexPath) as? ImagePostCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.post = post
-            
-            loadImage(for: cell, forItemAt: indexPath)
-            
-            return cell
+            guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePostCell", for: indexPath) as? ImagePostCollectionViewCell else { return UICollectionViewCell() }
+
+            imageCell.post = post
+            loadImage(for: imageCell, forItemAt: indexPath)
+            return imageCell
+
+        case .video:
+            guard let videoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoPostCell", for: indexPath) as? VideoCollectionViewCell else { return UICollectionViewCell() }
+
+            videoCell.post = post
         }
     }
     
@@ -131,12 +134,11 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         let post = postController.posts[indexPath.row]
         
         switch post.mediaType {
-            
         case .image:
-            
             guard let ratio = post.ratio else { return size }
-            
             size.height = size.width * ratio
+        case .video:
+            #warning("Do it!")
         }
         
         return size
@@ -161,7 +163,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     // MARK: - Load Images & Videos
     
     func loadImage(for imagePostCell: ImagePostCollectionViewCell, forItemAt indexPath: IndexPath) {
-        let post = postController.posts[indexPath.row]
+        let post = postController.posts[indexPath.item]
         
         guard let postID = post.id else { return }
         
@@ -206,6 +208,33 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         OperationQueue.main.addOperation(completionOp)
         
         operations[postID] = fetchOp
+    }
+
+    func loadVideo(for videoPostCell: ImagePostCollectionViewCell, forItemAt indexPath: IndexPath) {
+        let post = postController.posts[indexPath.item]
+
+        guard let postID = post.id else { return }
+        let videoURL = getCachedVideo(for: post)
+
+        if FileManager.default.fileExists(atPath: videoURL.path) {
+            videoPostCell.
+        }
+
+        let fetchOp = FetchMediaOperation(post: post, postController: postController)
+
+        let cacheOp = BlockOperation {
+            if let data = fetchOp.mediaData {
+
+            }
+        }
+
+    }
+
+    private func getCachedVideo(for post: Post) -> URL? {
+        guard let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first, let postID = post.id else { return nil }
+        let mediaURL = cacheDir.appendingPathComponent(postID)
+        let cachedMediaURL = mediaURL.appendingPathExtension("mov")
+        return cachedMediaURL
     }
     // MARK: - Navigation
 
